@@ -1,9 +1,9 @@
 import java.awt.Rectangle;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 import java.io.File;
+
 import javax.imageio.ImageIO;
+
 import java.io.IOException;
 
 
@@ -46,19 +46,10 @@ public class BitmapItem extends SlideItem {
     return imageName;
   }
 
-// geef de bounding box van het plaatje
-  public Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style myStyle) {
-    return new Rectangle((int) (myStyle.indent * scale), 0,
-	(int) (bufferedImage.getWidth(observer) * scale),
-	((int) (myStyle.leading * scale)) + (int) (bufferedImage.getHeight(observer) * scale));
-  }
-
-// teken het plaatje
-  public void draw(int x, int y, float scale, Graphics g, Style myStyle, ImageObserver observer) {
-    int width = x + (int) (myStyle.indent * scale);
-    int height = y + (int) (myStyle.leading * scale);
-    g.drawImage(bufferedImage, width, height,(int) (bufferedImage.getWidth(observer)*scale),
-                (int) (bufferedImage.getHeight(observer)*scale), observer);
+  public Rectangle draw(int offsetX, int offsetY, Drawing drawer) {
+	  Rectangle boundingbox = drawer.getBoundingBox(bufferedImage);
+	  drawer.draw(offsetX, offsetY, bufferedImage);
+	  return boundingbox;
   }
 
   public String toString() {

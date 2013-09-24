@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Observable;
 
 /**
  * Presentation houdt de slides in de presentatie bij.
@@ -17,7 +16,7 @@ import java.util.Observable;
  */
 
 // Verandering: Presentation wordt een Observable
-public class Presentation extends Observable {
+public class Presentation {
 	private String showTitle; // de titel van de presentatie
 	private ArrayList<Slide> showList = null; // een ArrayList met de Slides
 	private int currentSlideNumber = 0; // het slidenummer van de huidige Slide
@@ -28,13 +27,6 @@ public class Presentation extends Observable {
 		// Verandering: Presentation heeft slideViewComponent nu niet meer als attribuut
 		//slideViewComponent = null;
 		clear();
-	}
-	
-	// Verandering: De constructor kan blijven bestaan, maar slideViewerComponent wordt
-	// nu toegevoegd aan de observers
-	public Presentation(SlideViewerComponent slideViewerComponent) {
-		clear();
-		this.addObserver(slideViewerComponent);
 	}
 
 // Methode die wordt gebruikt door de Controller
@@ -68,22 +60,6 @@ public class Presentation extends Observable {
 		//if (slideViewComponent != null) {
 		//	slideViewComponent.update(this, getCurrentSlide());
 		//}
-		this.setChanged();
-	    this.notifyObservers(getCurrentSlide());
-	}
-
-// ga naar de vorige slide tenzij je aan het begin van de presentatie bent
-	public void prevSlide() {
-		if (currentSlideNumber > 0) {
-			setSlideNumber(currentSlideNumber - 1);
-		}
-	}
-
-// Ga naar de volgende slide tenzij je aan het einde van de presentatie bent.
-	public void nextSlide() {
-		if (currentSlideNumber < (showList.size()-1)) {
-			setSlideNumber(currentSlideNumber + 1);
-		}
 	}
 
 // Verwijder de presentatie, om klaar te zijn voor de volgende
@@ -109,9 +85,5 @@ public class Presentation extends Observable {
 // Geef de huidige Slide
 	public Slide getCurrentSlide() {
 		return getSlide(currentSlideNumber);
-	}
-
-	public void exit(int n) {
-		System.exit(n);
 	}
 }

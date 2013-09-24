@@ -23,7 +23,7 @@ public class XMLAccessor extends Accessor {
 
   public void loadFile(Presentation presentation, String filename) throws IOException {
     try {
-      SAXBuilder builder = new SAXBuilder(true);    // true -> validate
+      SAXBuilder builder = new SAXBuilder(true);    // true -> validate    
       Document document = builder.build(new File(filename)); // maak een JDOM document
       Element element = document.getRootElement();
       String title = element.getChild("head").getChild("title").getText();
@@ -58,17 +58,8 @@ public class XMLAccessor extends Accessor {
       catch(NumberFormatException x) {
       }
     }
-    if ("text".equals(type)) {
-      slide.append(new TextItem(level, item.getText()));
-    }
-    else {
-      if ("image".equals(type)) {
-        slide.append(new BitmapItem(level, item.getText()));
-      }
-      else {
-        System.err.println("Unknown element type");
-      }
-    }
+    
+    slide.append(SlideItemFactory.getFactory(type).create(level, item.getText()));
   }
 
   public void saveFile(Presentation presentation, String filename) throws IOException {
@@ -82,9 +73,9 @@ public class XMLAccessor extends Accessor {
     for (int slideNumber=0; slideNumber<presentation.getSize(); slideNumber++) {
       Slide slide = presentation.getSlide(slideNumber);
       out.println("<slide>");
-      out.println("<title>" + slide.getTitle() + "</title>");
+      out.println("<title>" + slide.getTitleText() + "</title>");
       out.println("<items>");
-      Vector slideItems = slide.getSlideItems();
+      Vector<SlideItem> slideItems = slide.getSlideItems();
       for (int itemNumber = 0; itemNumber<slideItems.size(); itemNumber++) {
         SlideItem slideItem = (SlideItem) slideItems.elementAt(itemNumber);
         if (slideItem instanceof TextItem) {

@@ -1,6 +1,4 @@
 import java.awt.Rectangle;
-import java.awt.Graphics;
-import java.awt.image.ImageObserver;
 
 /** De abstracte klasse voor een item op een Slide
  * <P>
@@ -30,9 +28,6 @@ public abstract class SlideItem {
     return level;
   }
 
-// Geef de bounding box
-  public abstract Rectangle getBoundingBox(Graphics g, ImageObserver observer, float scale, Style style);
-
 // teken het item
-  public abstract void draw(int x, int y, float scale, Graphics g, Style style, ImageObserver observer);
+  public abstract Rectangle draw(int offsetX, int offsetY, Drawing drawer);
 }

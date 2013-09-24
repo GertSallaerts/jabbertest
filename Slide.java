@@ -1,6 +1,3 @@
-import java.awt.Graphics;
-import java.awt.Rectangle;
-import java.awt.image.ImageObserver;
 import java.util.Vector;
 
 /** Ean slide
@@ -33,9 +30,13 @@ public class Slide {
   }
 
 // geef de titel van de slide
-  public String getTitle() {
-    return title.getText();
+  public TextItem getTitle() {
+    return title;
   }
+  
+  public String getTitleText() {
+	    return title.getText();
+	  }
 
 // verander de titel van de slide
   // Verandering: de title is een TextItem in plaats van een String
@@ -54,34 +55,12 @@ public class Slide {
   }
 
 // geef alle SlideItems in een Vector
-  public Vector getSlideItems() {
+  public Vector<SlideItem> getSlideItems() {
     return items;
   }
 
 // geef de afmeting van de Slide
   public int getSize() {
     return items.size();
-  }
-
-// teken de slide
-  public void draw(Graphics g, Rectangle area, ImageObserver view) {
-    float scale = getScale(area);
-    int y = area.y;
-    // Verandering: de title is al een SlideItem
-    SlideItem slideItem = title;
-    Style style = Style.getStyle(slideItem.getLevel());
-    slideItem.draw(area.x, y, scale, g, style, view);
-    y += slideItem.getBoundingBox(g, view, scale, style).height;
-    for (int number=0; number<getSize(); number++) {
-      slideItem = (SlideItem)getSlideItems().elementAt(number);
-      style = Style.getStyle(slideItem.getLevel());
-      slideItem.draw(area.x, y, scale, g, style, view);
-      y += slideItem.getBoundingBox(g, view, scale, style).height;
-    }
-  }
-
-// geef de schaal om de slide te kunnen tekenen
-  private float getScale(Rectangle area) {
-    return Math.min(((float)area.width) / ((float)referenceWidth), ((float)area.height) / ((float)referenceHeight));
   }
 }

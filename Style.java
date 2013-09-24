@@ -18,6 +18,8 @@ import java.awt.Font;
 
 public class Style {
   private static Style[] styles; // de styles
+  private static Color annotationColor;
+  
   int indent;
   Color color;
   Font font;
@@ -38,6 +40,14 @@ public class Style {
       level = styles.length - 1;
     }
     return styles[level];
+  }
+  
+  public static void setAnnotationColor(Color c) {
+	  annotationColor = c;
+  }
+  
+  public static Color getAnnotationColor() {
+	  return annotationColor;
   }
 
   public Style(int indent, Color color, int points, int leading) {

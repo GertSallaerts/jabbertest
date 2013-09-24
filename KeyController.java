@@ -14,9 +14,9 @@ import java.awt.event.KeyAdapter;
  */
 
 public class KeyController extends KeyAdapter {
-  private Presentation presentation; // wat gecontrolled wordt is de presentatie
+  private PresentationFacade presentation; // wat gecontrolled wordt is de presentatie
 
-  public KeyController(Presentation p) {
+  public KeyController(PresentationFacade p) {
     presentation = p;
   }
 
