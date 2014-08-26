@@ -2,6 +2,7 @@ import java.awt.Frame;
 import javax.swing.JOptionPane;
 
 /**De About-box voor JabberPoint.
+gert
  * @author Ian F. Darwin, ian@darwinsys.com
  * @version $Id: AboutBox.java,v 1.1 2002/12/17 Gert Florijn
  * @version $Id: AboutBox.java,v 1.2 2003/11/19 Sylvia Stuurman
